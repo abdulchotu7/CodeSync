@@ -7,7 +7,7 @@ yarn-error.log*
 pnpm-debug.log*
 lerna-debug.log*
 
-src/firebase.js
+src/firebaseconfig.js
 node_modules
 dist
 dist-ssr
