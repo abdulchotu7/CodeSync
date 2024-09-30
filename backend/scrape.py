@@ -14,7 +14,7 @@ print(sys.argv)
 url = sys.argv[1]
 print(url)
 
-webdriver_path = 'C:\\Users\\sss\\Dropbox\\PC\\Downloads\\chromedriver.exe'
+webdriver_path = 'C:\\Users\\sss\\Dropbox\\PC\\Downloads\\chrome\\chromedriver-win64\\chromedriver.exe'
 
 service = Service(executable_path=webdriver_path)
 driver = webdriver.Chrome(service=service)

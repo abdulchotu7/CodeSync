@@ -4,8 +4,7 @@ const userSchema = new mongoose.Schema({
     u_name: {
         type: String,
         required: true, 
-        trim: true,
-        unique: true
+        trim: true
     },
     name:{
         type: String
@@ -18,14 +17,7 @@ const userSchema = new mongoose.Schema({
         type: String,
         trim: true
     },
-    Hackerrank: {
-        type: String,
-        trim: true
-    },
-    Codeforces: {
-        type: String,
-        trim: true
-    }
+
 }, {
     timestamps: true 
 });

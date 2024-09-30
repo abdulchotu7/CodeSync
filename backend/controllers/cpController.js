@@ -2,7 +2,7 @@ import userModel from "../models/userModel.js";
 
 export const putController = async (req, res) => {
     try {
-        const { u_name,name, Codechef, Leetcode, Hackerrank, Codeforces } = req.body;
+        const { u_name,name, Codechef, Leetcode} = req.body;
 
         console.log("Request body:", req.body);
 
@@ -15,11 +15,10 @@ export const putController = async (req, res) => {
             name,
             Codechef,
             Leetcode,
-            Hackerrank,
-            Codeforces
+            
         });
 
-        res.status(201).json(userfilled);
+        res.status(200).json(userfilled);
     } catch (error) {
         console.error("Error while pushing to the database:", error);
         res.status(500).json({ message: "Internal Server Error" });

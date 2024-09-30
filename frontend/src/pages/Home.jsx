@@ -18,7 +18,7 @@ const Home = () => {
     <div>
       <Navbar />
       {user ? (
-        <h2>Welcome, {user.uid}!</h2>
+        <h2>Welcome!</h2>
       ) : (
         <h1>Please log in</h1>
       )}

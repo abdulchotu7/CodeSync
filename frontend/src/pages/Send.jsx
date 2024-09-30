@@ -11,8 +11,6 @@ const schema = yup.object().shape({
   name: yup.string().required('Name is required'),
   Codechef: yup.string().url('Must be a valid URL'),
   Leetcode: yup.string().url('Must be a valid URL'),
-  Hackerrank: yup.string().url('Must be a valid URL'),
-  Codeforces: yup.string().url('Must be a valid URL')
 });
 
 function Form() {
@@ -28,11 +26,12 @@ function Form() {
       u_name: user.uid,
       ...data
     };
-  
+
     try {
       const response = await axios.post("http://localhost:5000/api/v1/cp/fill", newdata);
       if (response.status === 200) {
         console.log('Form submitted successfully:', response.data);
+        // Only navigate after successful submission
         navigate('/');
       } else {
         console.error('Error submitting form:', response.statusText);
@@ -44,7 +43,9 @@ function Form() {
 
   return (
     <>
-      {user ? (
+      {loading ? (
+        <div>Loading...</div>
+      ) : user ? (
         <div className="flex justify-center items-center h-screen bg-gray-100">
           <form onSubmit={handleSubmit(onSubmit)} className="bg-white p-8 rounded-lg shadow-md w-full max-w-lg">
             <h2 className="text-2xl font-bold mb-6 text-center">Profile Form</h2>
@@ -64,8 +65,9 @@ function Form() {
                 type="text" 
                 placeholder='Enter Codechef profile link' 
                 {...register('Codechef')} 
-                className="w-full px-3 py-2 border rounded-lg shadow-sm focus:outline-none focus:border-blue-500" 
+                className={`w-full px-3 py-2 border rounded-lg shadow-sm focus:outline-none focus:border-blue-500 ${errors.Codechef ? 'border-red-500' : 'border-gray-300'}`}
               />
+              {errors.Codechef && <p className="text-red-500 text-xs mt-1">{errors.Codechef.message}</p>}
             </div>
             <div className="mb-4">
               <label className="block text-gray-700 text-sm font-bold mb-2">Leetcode</label>
@@ -73,26 +75,9 @@ function Form() {
                 type="text" 
                 placeholder='Enter Leetcode profile link' 
                 {...register('Leetcode')} 
-                className="w-full px-3 py-2 border rounded-lg shadow-sm focus:outline-none focus:border-blue-500" 
+                className={`w-full px-3 py-2 border rounded-lg shadow-sm focus:outline-none focus:border-blue-500 ${errors.Leetcode ? 'border-red-500' : 'border-gray-300'}`}
               />
-            </div>
-            <div className="mb-4">
-              <label className="block text-gray-700 text-sm font-bold mb-2">Hackerrank</label>
-              <input 
-                type="text" 
-                placeholder='Enter Hackerrank profile link' 
-                {...register('Hackerrank')} 
-                className="w-full px-3 py-2 border rounded-lg shadow-sm focus:outline-none focus:border-blue-500" 
-              />
-            </div>
-            <div className="mb-4">
-              <label className="block text-gray-700 text-sm font-bold mb-2">Codeforces</label>
-              <input 
-                type="text" 
-                placeholder='Enter Codeforces profile link' 
-                {...register('Codeforces')} 
-                className="w-full px-3 py-2 border rounded-lg shadow-sm focus:outline-none focus:border-blue-500" 
-              />
+              {errors.Leetcode && <p className="text-red-500 text-xs mt-1">{errors.Leetcode.message}</p>}
             </div>
             <button 
               type="submit"
@@ -100,13 +85,13 @@ function Form() {
             >
               Submit
             </button>
+
           </form>
         </div>
       ) : (
-        <>
+        <div className="flex justify-center items-center h-screen bg-gray-100">
           <h1>Please Login</h1>
-          {navigate('/')}
-        </>
+        </div>
       )}
     </>
   );
